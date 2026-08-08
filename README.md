@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# rushline
 
-## Getting Started
+Recruit for competitive campus clubs with an insider's information advantage.
+rushline aggregates real scraped signals — club sites, Reddit, live X chatter,
+and member profiles — into personalized club pages built from ground truth, not
+self-reported blurbs.
 
-First, run the development server:
+Built for the Fall 2026 Cursor Campus Cup. Demo target: UC Berkeley consulting
+clubs. The pipeline is school-agnostic.
+
+## Features
+
+- **Auth + onboarding** (Supabase) — school, career goal, target club types, LinkedIn.
+- **Clubs feed** — ranked matches with reasoning tied to your goals.
+- **Club detail pages** — review + sources, client history, retreats, interview
+  intel, Reddit sentiment, member roster, "people you should meet," and a
+  **Vibe & Culture** card powered by the Grok `/stalk` skill.
+- **Coffee-chat outreach** — LLM-drafted personalized emails with pre-chat tips,
+  `mailto:` send + Google Calendar link, and LinkedIn/Instagram deep links.
+- **Social web** — an interactive force-directed graph of your network and the
+  shortest path into your top target club.
+- **Live scraper** — type any `school + club` to scrape Reddit + the club site
+  and synthesize intel on the fly.
+
+## Stack
+
+- Next.js (App Router) + TypeScript + Tailwind CSS v4
+- Supabase (auth + Postgres)
+- AI SDK v6 (`ai` + `@ai-sdk/openai`) — optional; falls back to templates
+- `cheerio` + Reddit public JSON API for scraping
+- `react-force-graph-2d` for the social web
+- Grok Build `/stalk` skill (see `.grok/skills/stalk/SKILL.md`) as the intel engine
+
+## Setup
 
 ```bash
+npm install
+cp .env.local.example .env.local   # already populated with Supabase creds
+# Optional: add OPENAI_API_KEY to .env.local for LLM summaries + email drafting
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Environment variables (`.env.local`):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `OPENAI_API_KEY` (optional — without it, summaries/emails use high-quality templates)
 
-## Learn More
+## The Grok `/stalk` skill
 
-To learn more about Next.js, take a look at the following resources:
+`/stalk` is rushline's intel engine, captured in Grok Build via `/skillify`. Two modes:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/stalk person "<name>" "<club>" "<school>"` → a coffee-chat dossier (LinkedIn,
+  Instagram, X, talking points) that feeds "people you should meet."
+- `/stalk vibe "<club>" "<school>"` → the Vibe & Culture read, synthesized from
+  live X (`x_search`), Reddit, and Instagram — the differentiator no non-Grok
+  tool can replicate.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Both modes emit structured JSON that upserts into the `members` and `club_intel`
+tables. See `.grok/skills/stalk/SKILL.md`.
 
-## Deploy on Vercel
+## Demo flow
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Sign up → onboarding (school, goals, LinkedIn).
+2. See matched Berkeley consulting clubs, ranked to your goal.
+3. Open a club page — clients, retreats, interview intel, Reddit sentiment, and
+   the Grok-powered Vibe & Culture card.
+4. Draft a coffee-chat email to a recommended member, with pre-chat tips.
+5. Open the social web — your network and the highlighted path into your target.
+6. Bonus: run the live scraper on any school + club the judges name.

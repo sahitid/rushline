@@ -1,26 +1,103 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0f;
+  --surface: #14141c;
+  --surface-2: #1c1c28;
+  --border: #2a2a3a;
+  --foreground: #ededf2;
+  --muted: #9a9ab0;
+  --accent: #ff5a3c;
+  --accent-2: #7c5cff;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+html,
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  background-image: radial-gradient(
+      600px circle at 15% -10%,
+      rgba(124, 92, 255, 0.12),
+      transparent 40%
+    ),
+    radial-gradient(700px circle at 90% 0%, rgba(255, 90, 60, 0.1), transparent 45%);
+  background-attachment: fixed;
+}
+
+.card {
+  background: color-mix(in oklab, var(--surface) 92%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent), #ff7a5c);
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: transform 0.08s ease, filter 0.15s ease;
+}
+.btn-accent:hover {
+  filter: brightness(1.08);
+}
+.btn-accent:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--foreground);
+  transition: background 0.15s ease;
+}
+.btn-ghost:hover {
+  background: var(--surface-2);
+}
+
+.chip {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 3px 10px;
+  color: var(--muted);
+}
+
+.input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--foreground);
+  width: 100%;
+  outline: none;
+}
+.input:focus {
+  border-color: var(--accent-2);
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(124, 92, 255, 0.35);
 }
