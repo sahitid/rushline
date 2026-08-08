@@ -1,103 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #0a0a0f;
-  --surface: #14141c;
-  --surface-2: #1c1c28;
-  --border: #2a2a3a;
-  --foreground: #ededf2;
-  --muted: #9a9ab0;
-  --accent: #ff5a3c;
-  --accent-2: #7c5cff;
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Newsreader', Georgia, serif;
+
+  --color-background: #FAFAF7;
+  --color-foreground: #0F0F0E;
+  --color-card: #FFFFFF;
+  --color-border: #E8E8E3;
+  --color-muted: #F4F4F0;
+  --color-muted-fg: #8C8C85;
+  --color-indigo: #3B3BFF;
+  --color-indigo-light: #EBEBFF;
+  --color-indigo-mid: #C7C7FF;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-border: var(--border);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
 html,
-body {
-  background: var(--background);
-  color: var(--foreground);
+body,
+#root {
+  height: 100%;
 }
 
 body {
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  background-image: radial-gradient(
-      600px circle at 15% -10%,
-      rgba(124, 92, 255, 0.12),
-      transparent 40%
-    ),
-    radial-gradient(700px circle at 90% 0%, rgba(255, 90, 60, 0.1), transparent 45%);
-  background-attachment: fixed;
+  background-color: #FAFAF7;
+  color: #0F0F0E;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-.card {
-  background: color-mix(in oklab, var(--surface) 92%, transparent);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  backdrop-filter: blur(6px);
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-
-.btn-accent {
-  background: linear-gradient(135deg, var(--accent), #ff7a5c);
-  color: white;
-  font-weight: 600;
-  border-radius: 10px;
-  transition: transform 0.08s ease, filter 0.15s ease;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
-.btn-accent:hover {
-  filter: brightness(1.08);
+::-webkit-scrollbar-thumb {
+  background: #D4D4CE;
+  border-radius: 3px;
 }
-.btn-accent:active {
-  transform: translateY(1px);
-}
-
-.btn-ghost {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  color: var(--foreground);
-  transition: background 0.15s ease;
-}
-.btn-ghost:hover {
-  background: var(--surface-2);
-}
-
-.chip {
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  border-radius: 999px;
-  font-size: 12px;
-  padding: 3px 10px;
-  color: var(--muted);
-}
-
-.input {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
-  color: var(--foreground);
-  width: 100%;
-  outline: none;
-}
-.input:focus {
-  border-color: var(--accent-2);
-}
-
-a {
-  color: inherit;
+::-webkit-scrollbar-thumb:hover {
+  background: #B0B0A8;
 }
 
 ::selection {
-  background: rgba(124, 92, 255, 0.35);
+  background: #C7C7FF;
 }

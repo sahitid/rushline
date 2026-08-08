@@ -20,10 +20,10 @@ export type GraphNode = {
 export type GraphLink = { source: string; target: string; onPath?: boolean };
 
 const COLORS: Record<GraphNode["kind"], string> = {
-  you: "#ff5a3c",
-  club: "#7c5cff",
-  member: "#4ea8ff",
-  alum: "#59d499",
+  you: "#3B3BFF",
+  club: "#1A1A2E",
+  member: "#0A3D62",
+  alum: "#7B2D00",
 };
 
 export default function NetworkGraph({
@@ -66,7 +66,15 @@ export default function NetworkGraph({
   return (
     <div
       ref={containerRef}
-      className="h-[600px] w-full overflow-hidden rounded-2xl border border-border bg-surface/60"
+      style={{
+        height: 600,
+        width: "100%",
+        overflow: "hidden",
+        borderRadius: 20,
+        border: "1px solid #E8E8E3",
+        background: "#FFFFFF",
+        boxShadow: "0 1px 4px rgba(0,0,0,0.03)",
+      }}
     >
       <ForceGraph2D
         ref={ref as never}
@@ -77,7 +85,7 @@ export default function NetworkGraph({
         cooldownTicks={120}
         onEngineStop={fit}
         linkColor={(l) =>
-          (l as GraphLink).onPath ? "#ff5a3c" : "rgba(154,154,176,0.25)"
+          (l as GraphLink).onPath ? "#3B3BFF" : "rgba(180,180,170,0.45)"
         }
         linkWidth={(l) => ((l as GraphLink).onPath ? 2.5 : 1)}
         linkDirectionalParticles={(l) => ((l as GraphLink).onPath ? 3 : 0)}
@@ -85,16 +93,20 @@ export default function NetworkGraph({
         nodeCanvasObject={(node, ctx, globalScale) => {
           const n = node as GraphNode & { x: number; y: number };
           const r = n.kind === "you" ? 7 : n.kind === "club" ? 5.5 : 4;
+          if (n.onPath) {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, r + 2.5, 0, 2 * Math.PI);
+            ctx.strokeStyle = "rgba(59,59,255,0.35)";
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+          }
           ctx.beginPath();
           ctx.arc(n.x, n.y, r, 0, 2 * Math.PI);
           ctx.fillStyle = COLORS[n.kind];
-          ctx.shadowColor = n.onPath ? "#ff5a3c" : COLORS[n.kind];
-          ctx.shadowBlur = n.onPath ? 16 : 6;
           ctx.fill();
-          ctx.shadowBlur = 0;
           const fontSize = Math.max(12 / globalScale, 3);
-          ctx.font = `${fontSize}px sans-serif`;
-          ctx.fillStyle = "#ededf2";
+          ctx.font = `600 ${fontSize}px Inter, sans-serif`;
+          ctx.fillStyle = "#4A4A44";
           ctx.textAlign = "center";
           ctx.textBaseline = "top";
           ctx.fillText(n.label, n.x, n.y + r + 1.5);

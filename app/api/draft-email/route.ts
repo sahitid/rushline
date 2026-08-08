@@ -5,10 +5,11 @@ type Body = {
   member: { name: string; role?: string; career_tags?: string[] };
   club: { name: string; school: string; category?: string };
   profile: { full_name?: string; school?: string; career_goal?: string };
+  tone?: "casual" | "formal";
 };
 
 export async function POST(req: Request) {
-  const { member, club, profile } = (await req.json()) as Body;
+  const { member, club, profile, tone } = (await req.json()) as Body;
   const firstName = member.name.split(" ")[0];
   const me = profile.full_name || "a student";
 
@@ -24,7 +25,9 @@ export async function POST(req: Request) {
         member.role ?? "a member"
       } of ${club.name} (${club.category ?? "club"} at ${
         club.school
-      }). Keep the body under 120 words, specific, and easy to say yes to. Also give 3 concrete pre-chat tips tailored to this person and club.
+      }). Tone: ${
+        tone === "casual" ? "casual and friendly" : "polished but warm"
+      }. Keep the body under 120 words, specific, and easy to say yes to. Also give 3 concrete pre-chat tips tailored to this person and club.
 Return JSON: {"subject": string, "body": string, "tips": string[]}`,
       "You are an expert at concise, authentic student networking outreach. Avoid clichés and flattery."
     );

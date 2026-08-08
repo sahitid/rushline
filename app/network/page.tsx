@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import NavBar from "@/components/NavBar";
+import Sidebar from "@/components/Sidebar";
 import NetworkGraph, {
   type GraphLink,
   type GraphNode,
@@ -102,39 +102,79 @@ export default function NetworkPage() {
   }, [clubs, members, profile]);
 
   return (
-    <>
-      <NavBar />
-      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-10">
-        <h1 className="text-2xl font-bold">Your social web</h1>
-        <p className="mt-1 text-sm text-muted">
-          Who you know, who&apos;s in each club, and the shortest path into your
-          top target.
-        </p>
+    <div style={{ display: "flex", minHeight: "100vh", background: "#FAFAF7" }}>
+      <Sidebar />
+      <main style={{ flex: 1, height: "100vh", overflowY: "auto", padding: "40px 48px" }}>
+        <div style={{ marginBottom: 20 }}>
+          <h1
+            style={{
+              fontFamily: "'Newsreader', serif",
+              fontSize: 34,
+              fontWeight: 400,
+              color: "#0F0F0E",
+              lineHeight: 1.2,
+              marginBottom: 6,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Your web
+          </h1>
+          <p style={{ fontSize: 14, color: "#8C8C85" }}>
+            Who you know, who&apos;s in each club, and the shortest path into
+            your top target.
+          </p>
+        </div>
 
         {target && path && (
-          <div className="card mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 p-4 text-sm">
-            <span className="text-muted">Your move:</span>
-            <span className="font-medium text-accent">
+          <div
+            style={{
+              background: "#EBEBFF",
+              border: "1px solid #C7C7FF",
+              borderRadius: 14,
+              padding: "14px 18px",
+              marginBottom: 20,
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: 6,
+              fontSize: 14,
+              maxWidth: 900,
+            }}
+          >
+            <span style={{ color: "#8C8C85" }}>Your move:</span>
+            <span style={{ fontWeight: 600, color: "#3B3BFF" }}>
               Reach out to {path.name}
             </span>
-            <span className="text-muted">
+            <span style={{ color: "#4A4A44" }}>
               ({path.role}
               {path.is_alumni ? ", alum" : ""}) — your strongest path into
             </span>
-            <span className="font-medium text-accent-2">{target.name}</span>
+            <span style={{ fontWeight: 600, color: "#0F0F0E" }}>{target.name}</span>
           </div>
         )}
 
-        <div className="mt-5 flex flex-wrap gap-3 text-xs text-muted">
-          <Legend color="#ff5a3c" label="You / path in" />
-          <Legend color="#7c5cff" label="Clubs" />
-          <Legend color="#4ea8ff" label="Members" />
-          <Legend color="#59d499" label="Alumni" />
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 20, marginBottom: 16 }}>
+          <Legend color="#3B3BFF" label="You / path in" />
+          <Legend color="#1A1A2E" label="Clubs" />
+          <Legend color="#0A3D62" label="Members" />
+          <Legend color="#7B2D00" label="Alumni" />
         </div>
 
-        <div className="mt-4">
+        <div style={{ maxWidth: 1100 }}>
           {loading ? (
-            <div className="flex h-[600px] items-center justify-center rounded-2xl border border-border text-sm text-muted">
+            <div
+              style={{
+                height: 600,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 20,
+                border: "1px solid #E8E8E3",
+                background: "#FFFFFF",
+                fontSize: 14,
+                color: "#8C8C85",
+              }}
+            >
               Building your graph…
             </div>
           ) : (
@@ -142,18 +182,23 @@ export default function NetworkPage() {
           )}
         </div>
       </main>
-    </>
+    </div>
   );
 }
 
 function Legend({ color, label }: { color: string; label: string }) {
   return (
-    <span className="flex items-center gap-1.5">
+    <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
       <span
-        className="inline-block h-2.5 w-2.5 rounded-full"
-        style={{ background: color }}
+        style={{
+          display: "inline-block",
+          width: 10,
+          height: 10,
+          borderRadius: "50%",
+          background: color,
+        }}
       />
-      {label}
+      <span style={{ fontSize: 12, color: "#8C8C85" }}>{label}</span>
     </span>
   );
 }
