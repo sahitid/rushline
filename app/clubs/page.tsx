@@ -4,12 +4,15 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import { fetchAllMembers } from "@/lib/fetch-all";
 import { getSupabase } from "@/lib/supabase";
-import { matchReason, scoreClub } from "@/lib/rank";
-import { colorFor, displayScore, monogram } from "@/lib/ui";
-import type { Club, Profile } from "@/lib/types";
+import { matchReason, matchSubline, scoreClubDetailed } from "@/lib/rank";
+import { colorFor, monogram } from "@/lib/ui";
+import type { Club, Member, Profile, UserConnection } from "@/lib/types";
 import { useSchool } from "@/components/SchoolProvider";
 import { schoolShortLabel } from "@/lib/school";
+
+type Placement = { firm: string; source?: string };
 
 const FILTERS = ["All", "Consulting", "Finance", "Tech", "VC", "Design"];
 
@@ -78,6 +81,11 @@ export default function ClubsPage() {
   const { school, ready } = useSchool();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [clubs, setClubs] = useState<Club[]>([]);
+  const [members, setMembers] = useState<Member[]>([]);
+  const [connections, setConnections] = useState<UserConnection[]>([]);
+  const [placementsByClubId, setPlacementsByClubId] = useState<
+    Record<string, Placement[]>
+  >({});
   const [loading, setLoading] = useState(true);
   const [scrapeInput, setScrapeInput] = useState("");
   const [scraping, setScraping] = useState(false);
@@ -94,12 +102,72 @@ export default function ClubsPage() {
         router.push("/login");
         return;
       }
-      const [{ data: prof }, { data: clubRows }] = await Promise.all([
+      const [{ data: prof }, { data: clubRows }, connRes] = await Promise.all([
         sb.from("profiles").select("*").eq("id", userData.user.id).maybeSingle(),
         sb.from("clubs").select("*").eq("school", school),
+        sb
+          .from("user_connections")
+          .select("*")
+          .eq("user_id", userData.user.id),
       ]);
+      const schoolClubs = (clubRows as Club[]) ?? [];
       setProfile(prof as Profile | null);
-      setClubs((clubRows as Club[]) ?? []);
+      setClubs(schoolClubs);
+      setConnections(
+        connRes.error ? [] : ((connRes.data as UserConnection[]) ?? [])
+      );
+
+      const ids = schoolClubs.map((c) => c.id);
+      try {
+        setMembers(ids.length ? await fetchAllMembers(sb, ids) : []);
+      } catch {
+        setMembers([]);
+      }
+
+      if (ids.length) {
+        // placements column may be missing on older DBs — fall back to sources only.
+        let intelRows:
+          | {
+              club_id: string;
+              placements?: Placement[] | null;
+              sources?: { label: string; url: string }[] | null;
+            }[]
+          | null = null;
+        const withPlacements = await sb
+          .from("club_intel")
+          .select("club_id,placements,sources")
+          .in("club_id", ids);
+        if (withPlacements.error) {
+          const fallback = await sb
+            .from("club_intel")
+            .select("club_id,sources")
+            .in("club_id", ids);
+          intelRows = fallback.data;
+        } else {
+          intelRows = withPlacements.data;
+        }
+        const map: Record<string, Placement[]> = {};
+        for (const row of intelRows ?? []) {
+          const fromCol = (row.placements as Placement[] | null) ?? [];
+          const fromSources = (
+            (row.sources as { label: string; url: string }[] | null) ?? []
+          )
+            .filter((s) => s.label.startsWith("placement:"))
+            .map((s) => ({
+              firm: s.label.replace(/^placement:/, ""),
+              source: s.url,
+            }));
+          const merged = [...fromCol];
+          for (const p of fromSources) {
+            if (!merged.some((m) => m.firm === p.firm)) merged.push(p);
+          }
+          if (merged.length) map[row.club_id as string] = merged;
+        }
+        setPlacementsByClubId(map);
+      } else {
+        setPlacementsByClubId({});
+      }
+
       setLoading(false);
     })();
   }, [router, school, ready]);
@@ -107,14 +175,25 @@ export default function ClubsPage() {
   const ranked = useMemo(() => {
     const goal = profile?.career_goal ?? null;
     const targets = profile?.target_clubs ?? [];
+    const ctx = { profile, connections, members, placementsByClubId };
+    const hasLinkedIn = Boolean(
+      profile?.linkedin_url || profile?.linkedin_scraped_at
+    );
     return [...clubs]
-      .map((c) => ({
-        club: c,
-        score: displayScore(scoreClub(c, goal, targets)),
-        reason: matchReason(c, goal, targets),
-      }))
-      .sort((a, b) => b.score - a.score);
-  }, [clubs, profile]);
+      .map((c) => {
+        const { score, breakdown } = scoreClubDetailed(c, ctx);
+        return {
+          club: c,
+          score,
+          reason: matchReason(c, goal, targets, ctx),
+          subline: matchSubline(breakdown, hasLinkedIn),
+        };
+      })
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.club.name.localeCompare(b.club.name);
+      });
+  }, [clubs, profile, connections, members, placementsByClubId]);
 
   const filtered = ranked.filter(
     ({ club }) =>
@@ -278,7 +357,7 @@ export default function ClubsPage() {
           <div style={{ fontSize: 14, color: "#8C8C85", marginTop: 40 }}>Loading clubs…</div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 980 }}>
-            {filtered.map(({ club, score, reason }) => (
+            {filtered.map(({ club, score, reason, subline }) => (
               <Link
                 key={club.id}
                 href={`/clubs/${club.id}`}
@@ -350,13 +429,20 @@ export default function ClubsPage() {
                       </span>
                     )}
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
-                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#3B3BFF" />
-                    </svg>
-                    <span style={{ fontSize: 13, color: "#4A4A44", fontStyle: "italic", lineHeight: 1.4 }}>
-                      {reason}
-                    </span>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#3B3BFF" />
+                      </svg>
+                      <span style={{ fontSize: 13, color: "#4A4A44", fontStyle: "italic", lineHeight: 1.4 }}>
+                        {reason}
+                      </span>
+                    </div>
+                    {subline && (
+                      <span style={{ fontSize: 11, color: "#8C8C85", marginLeft: 17 }}>
+                        {subline}
+                      </span>
+                    )}
                   </div>
                 </div>
 

@@ -7,9 +7,11 @@ import NetworkGraph, {
   type GraphLink,
   type GraphNode,
 } from "@/components/NetworkGraph";
+import { fetchAllMembers } from "@/lib/fetch-all";
 import { getSupabase } from "@/lib/supabase";
-import { scoreClub } from "@/lib/rank";
-import type { Club, Member, Profile } from "@/lib/types";
+import { linkedinSlug } from "@/lib/linkedin";
+import { scoreClubDetailed } from "@/lib/rank";
+import type { Club, Member, Profile, UserConnection } from "@/lib/types";
 import { useSchool } from "@/components/SchoolProvider";
 
 export default function NetworkPage() {
@@ -18,6 +20,7 @@ export default function NetworkPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [clubs, setClubs] = useState<Club[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
+  const [connections, setConnections] = useState<UserConnection[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,18 +33,24 @@ export default function NetworkPage() {
         router.push("/login");
         return;
       }
-      const [{ data: prof }, { data: clubRows }] = await Promise.all([
+      const [{ data: prof }, { data: clubRows }, connRes] = await Promise.all([
         sb.from("profiles").select("*").eq("id", userData.user.id).maybeSingle(),
         sb.from("clubs").select("*").eq("school", school),
+        sb
+          .from("user_connections")
+          .select("*")
+          .eq("user_id", userData.user.id),
       ]);
       const schoolClubs = (clubRows as Club[]) ?? [];
       setProfile(prof as Profile | null);
       setClubs(schoolClubs);
+      setConnections(
+        connRes.error ? [] : ((connRes.data as UserConnection[]) ?? [])
+      );
       const ids = schoolClubs.map((c) => c.id);
-      if (ids.length) {
-        const { data: memRows } = await sb.from("members").select("*").in("club_id", ids);
-        setMembers((memRows as Member[]) ?? []);
-      } else {
+      try {
+        setMembers(ids.length ? await fetchAllMembers(sb, ids) : []);
+      } catch {
         setMembers([]);
       }
       setLoading(false);
@@ -49,10 +58,9 @@ export default function NetworkPage() {
   }, [router, school, ready]);
 
   const { nodes, links, target, path } = useMemo(() => {
-    const goal = profile?.career_goal ?? null;
-    const targets = profile?.target_clubs ?? [];
     const nodes: GraphNode[] = [];
     const links: GraphLink[] = [];
+    const ctx = { profile, connections, members };
 
     const youId = "you";
     nodes.push({
@@ -62,20 +70,28 @@ export default function NetworkPage() {
       onPath: true,
     });
 
-    const rankedClubs = [...clubs].sort(
-      (a, b) => scoreClub(b, goal, targets) - scoreClub(a, goal, targets)
-    );
+    const rankedClubs = [...clubs]
+      .map((c) => ({ club: c, score: scoreClubDetailed(c, ctx).score }))
+      .sort((a, b) => b.score - a.score)
+      .map((x) => x.club);
+
     const target = rankedClubs[0];
 
-    // Pick the strongest connector into the target club for the highlighted path.
+    const connSlugs = new Set(
+      connections.map((c) => c.connected_linkedin_slug.toLowerCase())
+    );
+
     let pathMember: Member | null = null;
     if (target) {
       const targetMembers = members.filter((m) => m.club_id === target.id);
+      const connected = (m: Member) => {
+        const slug = linkedinSlug(m.linkedin_url);
+        return Boolean(slug && connSlugs.has(slug));
+      };
       pathMember =
-        targetMembers.find((m) =>
-          goal ? m.career_tags?.includes(goal) : false
-        ) ??
-        targetMembers.find((m) => m.is_alumni) ??
+        targetMembers.find((m) => !m.is_alumni && connected(m)) ??
+        targetMembers.find((m) => !m.is_alumni) ??
+        targetMembers.find((m) => connected(m)) ??
         targetMembers[0] ??
         null;
     }
@@ -88,27 +104,27 @@ export default function NetworkPage() {
         kind: "club",
         onPath: Boolean(isTarget),
       });
-      const clubMembers = members.filter((m) => m.club_id === club.id).slice(0, 5);
+      const clubMembers = members.filter((m) => m.club_id === club.id).slice(0, 8);
       clubMembers.forEach((m) => {
+        const slug = linkedinSlug(m.linkedin_url);
+        const realEdge = Boolean(slug && connSlugs.has(slug));
         const onPath = pathMember?.id === m.id;
         nodes.push({
           id: m.id,
-          label: m.name,
+          label: m.is_alumni ? `${m.name} (alum)` : m.name,
           kind: m.is_alumni ? "alum" : "member",
           onPath,
         });
         links.push({ source: club.id, target: m.id, onPath });
-        // Simulate an existing connection: alumni you're "linked" to feed back to you.
-        if (m.is_alumni || onPath) {
-          links.push({ source: youId, target: m.id, onPath });
+        if (realEdge || onPath) {
+          links.push({ source: youId, target: m.id, onPath: onPath || realEdge });
         }
       });
-      // You are exploring every ranked club.
       links.push({ source: youId, target: club.id, onPath: Boolean(isTarget) });
     });
 
     return { nodes, links, target, path: pathMember };
-  }, [clubs, members, profile]);
+  }, [clubs, members, profile, connections]);
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#FAFAF7" }}>

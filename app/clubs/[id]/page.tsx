@@ -5,9 +5,16 @@ import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
 import CoffeeChatDrawer from "@/components/CoffeeChatDrawer";
 import { getSupabase } from "@/lib/supabase";
-import { scoreClub } from "@/lib/rank";
-import { colorFor, displayScore, initials, monogram } from "@/lib/ui";
-import type { Club, ClubIntel, Member, Profile, RedditPost } from "@/lib/types";
+import { scoreClubDetailed } from "@/lib/rank";
+import { colorFor, initials, monogram } from "@/lib/ui";
+import type {
+  Club,
+  ClubIntel,
+  Member,
+  Profile,
+  RedditPost,
+  UserConnection,
+} from "@/lib/types";
 import { useSchool } from "@/components/SchoolProvider";
 import { schoolMatches, schoolShortLabel } from "@/lib/school";
 
@@ -110,6 +117,7 @@ export default function ClubDetail({
   const [members, setMembers] = useState<Member[]>([]);
   const [reddit, setReddit] = useState<RedditPost[]>([]);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [connections, setConnections] = useState<UserConnection[]>([]);
   const [active, setActive] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
   const [wrongSchool, setWrongSchool] = useState(false);
@@ -142,11 +150,16 @@ export default function ClubDetail({
       }
       const { data: userData } = await sb.auth.getUser();
       if (userData.user) {
-        const { data: prof } = await sb
-          .from("profiles")
-          .select("*")
-          .eq("id", userData.user.id)
-          .maybeSingle();
+        const [{ data: prof }, connRes] = await Promise.all([
+          sb.from("profiles").select("*").eq("id", userData.user.id).maybeSingle(),
+          sb
+            .from("user_connections")
+            .select("*")
+            .eq("user_id", userData.user.id),
+        ]);
+        setConnections(
+          connRes.error ? [] : ((connRes.data as UserConnection[]) ?? [])
+        );
         setProfile(prof as Profile | null);
       }
       setLoading(false);
@@ -199,9 +212,11 @@ export default function ClubDetail({
     profile?.career_goal ? m.career_tags?.includes(profile.career_goal) : false
   );
   const peopleToMeet = (goalMatched.length ? goalMatched : members).slice(0, 3);
-  const match = displayScore(
-    scoreClub(club, profile?.career_goal ?? null, profile?.target_clubs ?? [])
-  );
+  const match = scoreClubDetailed(club, {
+    profile,
+    connections,
+    members,
+  }).score;
 
   const vibeRows = [
     intel?.vibe?.culture && { label: "Culture", val: intel.vibe.culture },
