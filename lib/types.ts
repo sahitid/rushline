@@ -1,5 +1,13 @@
 export type CareerGoal = "consulting" | "startups" | "big_tech" | "quant" | "finance";
 
+export type LinkedInExperience = {
+  title?: string;
+  org?: string;
+  kind?: "work" | "education" | "org" | "other";
+  start?: string | null;
+  end?: string | null;
+};
+
 export type Profile = {
   id: string;
   full_name: string | null;
@@ -7,6 +15,22 @@ export type Profile = {
   career_goal: CareerGoal | null;
   linkedin_url: string | null;
   target_clubs: string[];
+  linkedin_scraped_at?: string | null;
+  linkedin_headline?: string | null;
+  linkedin_school?: string | null;
+  linkedin_high_school?: string | null;
+  linkedin_profile?: Record<string, unknown> | null;
+  linkedin_experiences?: LinkedInExperience[] | null;
+  linkedin_connection_count?: number | null;
+};
+
+export type UserConnection = {
+  id: string;
+  user_id: string;
+  connected_linkedin_slug: string;
+  connected_linkedin_url: string | null;
+  connected_name: string | null;
+  degree: 1 | 2;
 };
 
 export type Club = {
@@ -58,6 +82,7 @@ export type ClubIntel = {
   vibe: VibeRead;
   x_sentiment: XSentiment;
   sources: { label: string; url: string }[];
+  placements?: { firm: string; source?: string }[] | null;
 };
 
 export type Member = {
@@ -71,6 +96,8 @@ export type Member = {
   career_tags: string[];
   relevance: string | null;
   is_alumni: boolean;
+  talking_points?: string[] | null;
+  best_ask?: string | null;
 };
 
 export type RedditPost = {
@@ -86,4 +113,13 @@ export type RedditPost = {
 export type ClubWithIntel = Club & {
   intel: ClubIntel | null;
   members: Member[];
+};
+
+export type MatchBreakdown = {
+  d1: number;
+  d2: number;
+  overlap: number;
+  cat: number;
+  alumniPenalty: number;
+  d1Names: string[];
 };

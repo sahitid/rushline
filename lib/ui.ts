@@ -30,7 +30,7 @@ export function initials(name: string): string {
   return (parts[0][0] + (parts[parts.length - 1]?.[0] ?? "")).toUpperCase();
 }
 
-/** Map raw rank score (0–90) into a 55–95 display "match" number. */
+/** Identity — match scores are already 0–100. Kept for call-site compatibility. */
 export function displayScore(raw: number): number {
-  return Math.min(98, 55 + Math.round(raw * 0.45));
+  return Math.max(0, Math.min(100, Math.round(raw)));
 }
