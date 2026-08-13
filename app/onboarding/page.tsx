@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getSupabase } from "@/lib/supabase";
 import type { CareerGoal } from "@/lib/types";
+import { useSchool } from "@/components/SchoolProvider";
+import { DEFAULT_SCHOOL, SCHOOLS, type School } from "@/lib/school";
 
 const GOALS: { id: CareerGoal; label: string; icon: string; desc: string }[] = [
   { id: "consulting", label: "Consulting", icon: "💼", desc: "MBB, T2 strategy" },
@@ -39,13 +41,18 @@ const labelStyle: React.CSSProperties = {
 
 export default function OnboardingPage() {
   const router = useRouter();
+  const { school: selectedSchool, setSchool: setSelectedSchool } = useSchool();
   const [fullName, setFullName] = useState("");
-  const [school, setSchool] = useState("UC Berkeley");
+  const [school, setSchool] = useState<string>(DEFAULT_SCHOOL);
   const [goal, setGoal] = useState<CareerGoal>("consulting");
   const [linkedin, setLinkedin] = useState("");
   const [targets, setTargets] = useState<string[]>(["consulting"]);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setSchool(selectedSchool);
+  }, [selectedSchool]);
 
   useEffect(() => {
     getSupabase()
@@ -83,6 +90,9 @@ export default function OnboardingPage() {
       setError(error.message);
       setSaving(false);
       return;
+    }
+    if (school === "Cornell" || school === "UC Berkeley") {
+      setSelectedSchool(school);
     }
     router.push("/clubs");
   }
@@ -154,13 +164,17 @@ export default function OnboardingPage() {
             </div>
             <div>
               <label style={labelStyle}>School</label>
-              <input
-                style={inputStyle}
+              <select
+                style={{ ...inputStyle, cursor: "pointer" }}
                 value={school}
-                onChange={(e) => setSchool(e.target.value)}
-                onFocus={(e) => (e.target.style.borderColor = "#3B3BFF")}
-                onBlur={(e) => (e.target.style.borderColor = "#E8E8E3")}
-              />
+                onChange={(e) => setSchool(e.target.value as School)}
+              >
+                {SCHOOLS.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 

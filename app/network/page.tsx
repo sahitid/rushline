@@ -10,34 +10,43 @@ import NetworkGraph, {
 import { getSupabase } from "@/lib/supabase";
 import { scoreClub } from "@/lib/rank";
 import type { Club, Member, Profile } from "@/lib/types";
+import { useSchool } from "@/components/SchoolProvider";
 
 export default function NetworkPage() {
   const router = useRouter();
+  const { school, ready } = useSchool();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [clubs, setClubs] = useState<Club[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!ready) return;
     const sb = getSupabase();
     (async () => {
+      setLoading(true);
       const { data: userData } = await sb.auth.getUser();
       if (!userData.user) {
         router.push("/login");
         return;
       }
-      const [{ data: prof }, { data: clubRows }, { data: memRows }] =
-        await Promise.all([
-          sb.from("profiles").select("*").eq("id", userData.user.id).maybeSingle(),
-          sb.from("clubs").select("*"),
-          sb.from("members").select("*"),
-        ]);
+      const [{ data: prof }, { data: clubRows }] = await Promise.all([
+        sb.from("profiles").select("*").eq("id", userData.user.id).maybeSingle(),
+        sb.from("clubs").select("*").eq("school", school),
+      ]);
+      const schoolClubs = (clubRows as Club[]) ?? [];
       setProfile(prof as Profile | null);
-      setClubs((clubRows as Club[]) ?? []);
-      setMembers((memRows as Member[]) ?? []);
+      setClubs(schoolClubs);
+      const ids = schoolClubs.map((c) => c.id);
+      if (ids.length) {
+        const { data: memRows } = await sb.from("members").select("*").in("club_id", ids);
+        setMembers((memRows as Member[]) ?? []);
+      } else {
+        setMembers([]);
+      }
       setLoading(false);
     })();
-  }, [router]);
+  }, [router, school, ready]);
 
   const { nodes, links, target, path } = useMemo(() => {
     const goal = profile?.career_goal ?? null;
