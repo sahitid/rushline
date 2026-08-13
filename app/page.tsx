@@ -1,6 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import SchoolPicker from "@/components/SchoolPicker";
+import { useSchool } from "@/components/SchoolProvider";
+import { schoolShortLabel } from "@/lib/school";
 
 export default function Home() {
+  const { school } = useSchool();
+  const short = schoolShortLabel(school);
+  const isCornell = school === "Cornell";
+
   return (
     <main
       style={{
@@ -12,16 +21,39 @@ export default function Home() {
         padding: "0 24px 80px",
       }}
     >
-      {/* Logo top-left */}
-      <div style={{ position: "fixed", top: 24, left: 32, display: "flex", alignItems: "center", gap: 8 }}>
-        <div style={{ width: 26, height: 26, background: "#3B3BFF", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="white" />
-          </svg>
+      <div
+        style={{
+          position: "fixed",
+          top: 24,
+          left: 32,
+          right: 32,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          zIndex: 10,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div
+            style={{
+              width: 26,
+              height: 26,
+              background: "#3B3BFF",
+              borderRadius: 6,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="white" />
+            </svg>
+          </div>
+          <span style={{ fontWeight: 700, fontSize: 15, color: "#0F0F0E", letterSpacing: "-0.02em" }}>
+            rushline
+          </span>
         </div>
-        <span style={{ fontWeight: 700, fontSize: 15, color: "#0F0F0E", letterSpacing: "-0.02em" }}>
-          rushline
-        </span>
+        <SchoolPicker />
       </div>
 
       <div
@@ -45,7 +77,9 @@ export default function Home() {
             marginBottom: 28,
           }}
         >
-          UC Berkeley · consulting clubs · live demo
+          {isCornell
+            ? "Cornell · campus clubs · live demo"
+            : "UC Berkeley · consulting clubs · live demo"}
         </span>
         <h1
           style={{
@@ -62,7 +96,7 @@ export default function Home() {
         <p style={{ marginTop: 24, maxWidth: 620, fontSize: 17, lineHeight: 1.6, color: "#8C8C85" }}>
           Club recruiting is won on information asymmetry. rushline aggregates
           real scraped signals — club sites, Reddit, live X chatter, member
-          profiles — into personalized club pages built from ground truth, not
+          profiles — into personalized {short} club pages built from ground truth, not
           self-reported blurbs.
         </p>
         <div style={{ marginTop: 40, display: "flex", gap: 12 }}>
@@ -82,7 +116,7 @@ export default function Home() {
             Get started
           </Link>
           <Link
-            href="/clubs"
+            href={`/clubs?school=${isCornell ? "cornell" : "berkeley"}`}
             style={{
               padding: "13px 28px",
               borderRadius: 10,
@@ -94,7 +128,7 @@ export default function Home() {
               textDecoration: "none",
             }}
           >
-            Browse Berkeley clubs
+            Browse {short} clubs
           </Link>
         </div>
       </div>

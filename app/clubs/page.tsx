@@ -8,6 +8,8 @@ import { getSupabase } from "@/lib/supabase";
 import { matchReason, scoreClub } from "@/lib/rank";
 import { colorFor, displayScore, monogram } from "@/lib/ui";
 import type { Club, Profile } from "@/lib/types";
+import { useSchool } from "@/components/SchoolProvider";
+import { schoolShortLabel } from "@/lib/school";
 
 const FILTERS = ["All", "Consulting", "Finance", "Tech", "VC", "Design"];
 
@@ -73,6 +75,7 @@ function Tag({ children }: { children: React.ReactNode }) {
 
 export default function ClubsPage() {
   const router = useRouter();
+  const { school, ready } = useSchool();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [clubs, setClubs] = useState<Club[]>([]);
   const [loading, setLoading] = useState(true);
@@ -82,8 +85,10 @@ export default function ClubsPage() {
   const [hovered, setHovered] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!ready) return;
     const sb = getSupabase();
     (async () => {
+      setLoading(true);
       const { data: userData } = await sb.auth.getUser();
       if (!userData.user) {
         router.push("/login");
@@ -91,13 +96,13 @@ export default function ClubsPage() {
       }
       const [{ data: prof }, { data: clubRows }] = await Promise.all([
         sb.from("profiles").select("*").eq("id", userData.user.id).maybeSingle(),
-        sb.from("clubs").select("*"),
+        sb.from("clubs").select("*").eq("school", school),
       ]);
       setProfile(prof as Profile | null);
       setClubs((clubRows as Club[]) ?? []);
       setLoading(false);
     })();
-  }, [router]);
+  }, [router, school, ready]);
 
   const ranked = useMemo(() => {
     const goal = profile?.career_goal ?? null;
@@ -124,7 +129,7 @@ export default function ClubsPage() {
       const res = await fetch("/api/scrape", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: scrapeInput, school: profile?.school }),
+        body: JSON.stringify({ query: scrapeInput, school }),
       });
       const data = await res.json();
       if (data.clubId) router.push(`/clubs/${data.clubId}`);
@@ -182,9 +187,7 @@ export default function ClubsPage() {
                   {g}
                 </span>
               ))}
-            {profile?.school && (
-              <span style={{ marginLeft: 8 }}>at {profile.school}</span>
-            )}
+            <span style={{ marginLeft: 8 }}>at {schoolShortLabel(school)}</span>
           </p>
         </div>
 

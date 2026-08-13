@@ -8,6 +8,8 @@ import { getSupabase } from "@/lib/supabase";
 import { scoreClub } from "@/lib/rank";
 import { colorFor, displayScore, initials, monogram } from "@/lib/ui";
 import type { Club, ClubIntel, Member, Profile, RedditPost } from "@/lib/types";
+import { useSchool } from "@/components/SchoolProvider";
+import { schoolMatches, schoolShortLabel } from "@/lib/school";
 
 function linkedinConnect(m: Member, club: Club) {
   if (m.linkedin_url) return m.linkedin_url;
@@ -102,6 +104,7 @@ export default function ClubDetail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
+  const { school, ready } = useSchool();
   const [club, setClub] = useState<Club | null>(null);
   const [intel, setIntel] = useState<ClubIntel | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
@@ -109,10 +112,14 @@ export default function ClubDetail({
   const [profile, setProfile] = useState<Profile | null>(null);
   const [active, setActive] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
+  const [wrongSchool, setWrongSchool] = useState(false);
 
   useEffect(() => {
+    if (!ready) return;
     const sb = getSupabase();
     (async () => {
+      setLoading(true);
+      setWrongSchool(false);
       const [{ data: c }, { data: it }, { data: mem }, { data: rp }] =
         await Promise.all([
           sb.from("clubs").select("*").eq("id", id).maybeSingle(),
@@ -120,10 +127,19 @@ export default function ClubDetail({
           sb.from("members").select("*").eq("club_id", id),
           sb.from("reddit_posts").select("*").eq("club_id", id),
         ]);
-      setClub(c as Club | null);
-      setIntel(it as ClubIntel | null);
-      setMembers((mem as Member[]) ?? []);
-      setReddit((rp as RedditPost[]) ?? []);
+      const clubRow = c as Club | null;
+      if (clubRow && !schoolMatches(clubRow.school, school)) {
+        setClub(null);
+        setIntel(null);
+        setMembers([]);
+        setReddit([]);
+        setWrongSchool(true);
+      } else {
+        setClub(clubRow);
+        setIntel(it as ClubIntel | null);
+        setMembers((mem as Member[]) ?? []);
+        setReddit((rp as RedditPost[]) ?? []);
+      }
       const { data: userData } = await sb.auth.getUser();
       if (userData.user) {
         const { data: prof } = await sb
@@ -135,7 +151,7 @@ export default function ClubDetail({
       }
       setLoading(false);
     })();
-  }, [id]);
+  }, [id, school, ready]);
 
   const shell = (content: React.ReactNode) => (
     <div style={{ display: "flex", minHeight: "100vh", background: "#FAFAF7", position: "relative" }}>
@@ -170,7 +186,9 @@ export default function ClubDetail({
   if (!club)
     return shell(
       <div style={{ fontSize: 14, color: "#8C8C85" }}>
-        Club not found.{" "}
+        {wrongSchool
+          ? `This club isn’t in ${schoolShortLabel(school)}. Switch schools in the sidebar, or `
+          : "Club not found. "}
         <Link href="/clubs" style={{ color: "#3B3BFF" }}>
           Back to clubs
         </Link>
