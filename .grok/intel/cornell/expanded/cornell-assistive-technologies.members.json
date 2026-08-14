@@ -1,0 +1,184 @@
+{
+  "slug": "cornell-assistive-technologies",
+  "club": "Cornell Assistive Technologies",
+  "school": "Cornell",
+  "member_count": 10,
+  "members": [
+    {
+      "name": "Lucas Keith",
+      "role": "Full Team Lead",
+      "linkedin_url": "https://www.linkedin.com/in/lucas-keith",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups",
+        "big_tech"
+      ],
+      "relevance": "Listed Full Team Lead (BME '26) on public About Us roster — primary org contact.",
+      "is_alumni": false,
+      "talking_points": [
+        "How full-team leads prioritize community partner projects vs competition entries.",
+        "BME + device design path through CAT."
+      ],
+      "best_ask": "What a strong first conversation with a community partner looks like for a new device brief."
+    },
+    {
+      "name": "Mae Sliwinski",
+      "role": "Full Team Lead (roster); Hardware Developer @ IBM",
+      "linkedin_url": "https://www.linkedin.com/in/mae-sliwinski-771a76237",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "big_tech"
+      ],
+      "relevance": "Named Full Team Lead on About Us; LinkedIn shows post-grad IBM hardware role — useful alumni bridge.",
+      "is_alumni": true,
+      "talking_points": [
+        "How CAT leadership translated to IBM hardware/systems work.",
+        "Lessons from converting Adaptive Play into an official project team era."
+      ],
+      "best_ask": "Which CAT skill most surprised you as transferable into hardware industry roles."
+    },
+    {
+      "name": "Savaas Iqbal",
+      "role": "Engineering Subteam Lead",
+      "linkedin_url": "https://www.linkedin.com/in/savaas-iqbal",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups",
+        "big_tech"
+      ],
+      "relevance": "Current Engineering Subteam Lead; tactile coding blocks / RESNA finalist work is flagship technical story.",
+      "is_alumni": false,
+      "talking_points": [
+        "Tactile coding kits for blind students and Micro:Bit curriculum partnership.",
+        "Leading mixed MechE + frontend/backend squads to ship assistive products."
+      ],
+      "best_ask": "How you validate an assistive prototype with users who have different access needs."
+    },
+    {
+      "name": "Natalie Shepherd",
+      "role": "Engineering Subteam Lead / Full Team Lead (LinkedIn)",
+      "linkedin_url": "https://www.linkedin.com/in/natalie-m-shepherd",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting",
+        "startups"
+      ],
+      "relevance": "Public Engineering Subteam Lead on About Us; LinkedIn describes full-team leadership of ~60-member org and competition devices.",
+      "is_alumni": false,
+      "talking_points": [
+        "Balancing pre-med/BME with leading a large project team.",
+        "DEBUT/RESNA competition devices (sensory-overload watch, drainage bag clamp)."
+      ],
+      "best_ask": "How CAT chooses which community needs become semester projects."
+    },
+    {
+      "name": "Chris Parker",
+      "role": "Engineering Subteam Lead",
+      "linkedin_url": "https://www.linkedin.com/in/dchrisparker",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups",
+        "big_tech"
+      ],
+      "relevance": "Engineering Subteam Lead / Co-Chair; wearable sensory-overload device ownership.",
+      "is_alumni": false,
+      "talking_points": [
+        "Wearable sensory-overload detection project leadership.",
+        "CS '26 perspective on assistive hardware/software integration."
+      ],
+      "best_ask": "Hardest UX constraint you’ve hit building for sensory differences."
+    },
+    {
+      "name": "William Ellis",
+      "role": "Engineering Subteam Lead",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups"
+      ],
+      "relevance": "Civil Engineering '26 Engineering Subteam Lead on public roster.",
+      "is_alumni": false,
+      "talking_points": [
+        "Civil engineering lens on assistive device design.",
+        "How non-ECE/MechE majors contribute on Engineering subteam."
+      ],
+      "best_ask": "What civil/structural thinking transfers into assistive product design."
+    },
+    {
+      "name": "Zaid Al-Shoha",
+      "role": "Outreach and Education Subteam Lead",
+      "linkedin_url": "https://www.linkedin.com/in/zaid-al-shoha",
+      "instagram": null,
+      "email": "zaa28@cornell.edu",
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Education Subteam Lead; owns K-12 / community learning programs.",
+      "is_alumni": false,
+      "talking_points": [
+        "Education subteam partnerships with schools and libraries.",
+        "Pre-med path + accessibility outreach."
+      ],
+      "best_ask": "How Education measures whether a workshop actually improved accessibility awareness."
+    },
+    {
+      "name": "Josephine Kelly",
+      "role": "Outreach and Education Subteam Lead",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Cognitive Science + Information Science Education co-lead on public roster.",
+      "is_alumni": false,
+      "talking_points": [
+        "CogSci/InfoSci angle on inclusive education design.",
+        "Co-leading outreach with Zaid."
+      ],
+      "best_ask": "What makes an accessibility workshop land with middle/high school students."
+    },
+    {
+      "name": "Dina Shlufman",
+      "role": "Operations Subteam Lead",
+      "linkedin_url": "https://www.linkedin.com/in/dina-shlufman",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting",
+        "big_tech"
+      ],
+      "relevance": "Operations Subteam Lead / Internal Operations Lead — logistics, brand, internal systems.",
+      "is_alumni": false,
+      "talking_points": [
+        "Internal ops for a growing accessibility project team.",
+        "HCI/assistive interest connecting ops and product thinking."
+      ],
+      "best_ask": "What ops systems CAT needed once it became an official project team."
+    },
+    {
+      "name": "Richard Ballard",
+      "role": "Operations Team Member; Business Operations Lead (LinkedIn company)",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting",
+        "finance"
+      ],
+      "relevance": "Named on public Operations roster; LinkedIn company page lists Business Operations Lead.",
+      "is_alumni": false,
+      "talking_points": [
+        "Business ops / funding mix (SAFC, CPFB, sponsors).",
+        "Info Sci + Comm background on an engineering project team."
+      ],
+      "best_ask": "How CAT pitches sponsors when the product is assistive rather than competition-glamorous."
+    }
+  ]
+}

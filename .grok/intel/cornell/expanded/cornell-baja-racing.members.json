@@ -1,0 +1,183 @@
+{
+  "slug": "cornell-baja-racing",
+  "club": "Cornell Baja Racing",
+  "school": "Cornell",
+  "member_count": 10,
+  "members": [
+    {
+      "name": "Rachel Ortiz",
+      "role": "Team Lead",
+      "linkedin_url": "https://www.linkedin.com/in/rachel-ortiz-85314432a/",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups",
+        "big_tech"
+      ],
+      "relevance": "Current Team Lead (MechE '27) on public team page.",
+      "is_alumni": false,
+      "talking_points": [
+        "Leading after the Iron Team season — sustaining a winning culture.",
+        "MechE project-team path into full-team leadership."
+      ],
+      "best_ask": "What the team is protecting vs reinventing after three 1st-place finishes."
+    },
+    {
+      "name": "Ava Rosenow",
+      "role": "Team Lead",
+      "linkedin_url": "https://www.linkedin.com/in/ava-rosenow-836b89213/",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups",
+        "big_tech"
+      ],
+      "relevance": "Current Team Lead (MechE '27).",
+      "is_alumni": false,
+      "talking_points": [
+        "Cross-subteam coordination during build/test phases.",
+        "How team leads run Preliminary/Critical/Final design reviews."
+      ],
+      "best_ask": "How team leads keep six subteams synchronized before competition travel."
+    },
+    {
+      "name": "Greg Svensson",
+      "role": "Team Lead",
+      "linkedin_url": "https://www.linkedin.com/in/greg-svensson-2b920a2a7/",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups"
+      ],
+      "relevance": "Current Team Lead (MechE '27).",
+      "is_alumni": false,
+      "talking_points": [
+        "Technical vs operational ownership among co-leads.",
+        "Shop culture and engineering integrity expectations."
+      ],
+      "best_ask": "What ‘engineering integrity’ looks like day-to-day in Auto Lab."
+    },
+    {
+      "name": "Bella Pensabene",
+      "role": "Onboarding Lead",
+      "linkedin_url": "https://www.linkedin.com/in/isabella-pensabene-241848292/",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting",
+        "startups"
+      ],
+      "relevance": "Onboarding Lead — best contact for recruiting/new-member experience.",
+      "is_alumni": false,
+      "talking_points": [
+        "First-semester hands-on projects before subteam placement.",
+        "Fall-only recruiting philosophy."
+      ],
+      "best_ask": "What makes a new-member project actually useful to the car, not busywork."
+    },
+    {
+      "name": "Elias Herrera Hernandez",
+      "role": "Drivetrain Lead",
+      "linkedin_url": "https://www.linkedin.com/in/eliasherrera27182",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups",
+        "big_tech"
+      ],
+      "relevance": "Drivetrain Lead — custom CVT/gearboxes/hubs under 10 HP constraint.",
+      "is_alumni": false,
+      "talking_points": [
+        "Custom CVT and power-efficiency under SAE engine limits.",
+        "Dyno + telemetry validation of driveline designs."
+      ],
+      "best_ask": "Hardest reliability problem in the driveline last season."
+    },
+    {
+      "name": "Sava Iliev",
+      "role": "Suspension Lead",
+      "linkedin_url": "https://www.linkedin.com/in/sava-iliev",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups"
+      ],
+      "relevance": "Suspension Lead; featured driving prior car in Cornell Chronicle.",
+      "is_alumni": false,
+      "talking_points": [
+        "Handling targets and suspension kinematics.",
+        "Using last year’s Iron Team car as a test mule."
+      ],
+      "best_ask": "What suspension change you’re most excited to validate on the practice track."
+    },
+    {
+      "name": "Mallory Moore",
+      "role": "Frame Lead",
+      "linkedin_url": "https://www.linkedin.com/in/mallory-moore-cornell",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups"
+      ],
+      "relevance": "Frame Lead — roll cage/structure ownership and welding culture.",
+      "is_alumni": false,
+      "talking_points": [
+        "In-house welded frame design and safety rules.",
+        "Manufacturing schedule pressure before competition."
+      ],
+      "best_ask": "How Frame trades stiffness, weight, and manufacturability."
+    },
+    {
+      "name": "Magnus Carson",
+      "role": "Brakes Lead",
+      "linkedin_url": "https://www.linkedin.com/in/magnus-carson-976905327",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups"
+      ],
+      "relevance": "Brakes Lead — custom master cylinders/rotors/calipers.",
+      "is_alumni": false,
+      "talking_points": [
+        "Custom brake system design for off-road abuse.",
+        "Safety-critical validation before dynamic events."
+      ],
+      "best_ask": "What brake failure mode you design hardest against."
+    },
+    {
+      "name": "Rex Popick",
+      "role": "Business Lead",
+      "linkedin_url": "https://www.linkedin.com/in/rex-popick",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting",
+        "finance"
+      ],
+      "relevance": "Business Lead — sponsors, SAE Business Presentation, travel/logistics.",
+      "is_alumni": false,
+      "talking_points": [
+        "Business Presentation event as a scored competition element.",
+        "Sponsor relations that fund in-house manufacturing."
+      ],
+      "best_ask": "How Business tells the Iron Team story without sounding complacent to sponsors."
+    },
+    {
+      "name": "Trevor Boshnack",
+      "role": "Transmission Lead",
+      "linkedin_url": "https://www.linkedin.com/in/trevor-boshnack-61b83a324",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "startups"
+      ],
+      "relevance": "Transmission Lead within drivetrain organization.",
+      "is_alumni": false,
+      "talking_points": [
+        "Transmission/CVT subsystem ownership.",
+        "Design iteration using prior-year car testing."
+      ],
+      "best_ask": "What transmission metric you watch most during practice runs."
+    }
+  ]
+}

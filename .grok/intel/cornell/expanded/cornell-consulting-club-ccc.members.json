@@ -1,0 +1,194 @@
+{
+  "slug": "cornell-consulting-club-ccc",
+  "club": "Cornell Consulting Club (CCC)",
+  "school": "Cornell",
+  "member_count": 10,
+  "members": [
+    {
+      "name": "Neil Abraham",
+      "role": "President",
+      "linkedin_url": "https://www.linkedin.com/in/neil-m-abraham",
+      "instagram": null,
+      "email": "na456@cornell.edu",
+      "career_tags": [
+        "finance",
+        "consulting"
+      ],
+      "relevance": "Current CCC President and public client-inquiry contact — best single coffee chat for how the club is positioning itself and what leadership looks for in analysts.",
+      "is_alumni": false,
+      "talking_points": [
+        "ORIE + Environmental Engineering '27; also Banking at Cornell, ORIE Ambassadors, ORIE 3150 TA, social fraternity.",
+        "Incoming Infrastructure Secondaries Summer Analyst at Blackstone; prior PE at Tigbourne Capital, strategy at Global Partners LP, Cleantech Ventures BD.",
+        "Listed on club Contact page with Leila for client inquiries — owns the external face of CCC."
+      ],
+      "best_ask": "Ask what differentiates a Round-1 callback from a ding this cycle, and how he balances Blackstone-track recruiting with 10–15 hr/wk CCC project load."
+    },
+    {
+      "name": "Sam Perez",
+      "role": "Executive Vice President",
+      "linkedin_url": "https://www.linkedin.com/in/samaperez44",
+      "instagram": null,
+      "email": "sap246@cornell.edu",
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "EVP with returning BCG Summer Associate signal — strongest coffee chat for MBB recruiting path and how CCC maps to real consulting interviews.",
+      "is_alumni": false,
+      "talking_points": [
+        "ILR '27 from NYC; Cornell Club Baseball and CSalt.",
+        "Sophomore Summer Associate at BCG + incoming Summer Associate again; prior Strategy & Innovation intern at GM.",
+        "Also listed as a Project Manager — sees both eboard ops and delivery side."
+      ],
+      "best_ask": "Ask which CCC project/casing habits actually transferred into his BCG interviews — and what he wishes he'd practiced earlier."
+    },
+    {
+      "name": "Zara Islam",
+      "role": "Vice President of Membership",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": "zsi2@cornell.edu",
+      "career_tags": [
+        "consulting",
+        "startups"
+      ],
+      "relevance": "VP Membership = primary recruitment owner (Spring '26 contact on Apply page); also AKPsi VP Internal — dual business-org lens.",
+      "is_alumni": false,
+      "talking_points": [
+        "CS '28 from Queens; campus bio lists Alpha Kappa Psi (where she is VP Internal Affairs).",
+        "Summer Associate at Zsenia; Apply page routes all recruitment questions to zsi2@cornell.edu.",
+        "Owns coffee-chat / interest-form funnel and who gets Round 1 invites."
+      ],
+      "best_ask": "Ask what she wants to see in a coffee chat before apps, and how CCC Membership evaluates frosh potential vs soph résumé depth."
+    },
+    {
+      "name": "Leila Boesch-Powers",
+      "role": "Vice President of Corporate Relations",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": "lnb56@cornell.edu",
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "VP Corporate Relations — owns client pipeline/partnerships; Contact page pairs her with Neil for client inquiries.",
+      "is_alumni": false,
+      "talking_points": [
+        "Hotel Admin '28 from Cambridge, MA; Phi Gamma Nu, Hotel Ezra Cornell, Sigma Delta Tau.",
+        "Recreation Intern at Cliff House Maine; interests include scuba, lifting, Costco, U.S. history.",
+        "Corporate Relations seat = how CCC sources the Fortune-to-startup client mix the FAQ brags about."
+      ],
+      "best_ask": "Ask how CCC picks and scopes the 3–4 semester clients and what makes a project 'good' for new analysts."
+    },
+    {
+      "name": "Andrea Peng",
+      "role": "Vice President of Public Relations",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": "ap2454@cornell.edu",
+      "career_tags": [
+        "consulting",
+        "startups"
+      ],
+      "relevance": "VP PR — owns campus brand/IG messaging; Apply page lists her with Zara for recruitment & campus-event inquiries.",
+      "is_alumni": false,
+      "talking_points": [
+        "Hotel Admin '28 from Reno; Hotel Ezra Cornell, CUABS, TASA, Cornell Hotel Society, Meinig Scholars.",
+        "Business Strategy Intern at Four Hundred; hobbies baking cakes / hosting dinners.",
+        "PR lens is useful for how CCC wants to be perceived vs CCG/SBC/180DC."
+      ],
+      "best_ask": "Ask what story CCC is pushing on IG/info sessions this cycle and which events convert lurkers into applicants."
+    },
+    {
+      "name": "Eddy Pang",
+      "role": "Vice President of Internal Relations",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": "esp86@cornell.edu",
+      "career_tags": [
+        "finance",
+        "consulting"
+      ],
+      "relevance": "VP Internal + Project Manager — owns member experience/culture ops and sees delivery workload up close.",
+      "is_alumni": false,
+      "talking_points": [
+        "Public Policy '28 from Birmingham, AL; Cornell Hedge Fund involvement.",
+        "Also staffed as a Project Manager — bridges eboard and project delivery.",
+        "Interests: basketball, food, Instagram reels — useful icebreakers."
+      ],
+      "best_ask": "Ask what 'good internal health' looks like week-to-week and where new analysts actually burn time beyond the FAQ's 10–15 hrs."
+    },
+    {
+      "name": "Ajay Sharma",
+      "role": "Vice President of Operations",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": "as4279@cornell.edu",
+      "career_tags": [
+        "finance"
+      ],
+      "relevance": "VP Operations — owns ops/logistics of a ~34-person consulting org; finance-track signal (PE/IB internships).",
+      "is_alumni": false,
+      "talking_points": [
+        "Econ + Philosophy + Math '28 from Basking Ridge, NJ; Big Red Raas, Cornell Political Union, Writing Center.",
+        "PE Fall Analyst at Ridgeview Holdings Group; IB Summer Analyst at KCC Capital Partners.",
+        "Ops seat means he sees staffing, timelines, and how promotions work each semester."
+      ],
+      "best_ask": "Ask how semester promotions and project staffing actually work for analysts who want PM/PD tracks."
+    },
+    {
+      "name": "Cate Tucker",
+      "role": "Vice President of Diversity, Equity, & Inclusion",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": "cst84@cornell.edu",
+      "career_tags": [
+        "consulting",
+        "finance"
+      ],
+      "relevance": "VP DEI with incoming McKinsey Sophomore Summer BA — best contact for DEI programming and MBB path from CCC.",
+      "is_alumni": false,
+      "talking_points": [
+        "Econ + Environment & Sustainability '28 from Greenwich, CT; Cornell Financial Analysts, Women's Club Volleyball.",
+        "Incoming Sophomore Summer Business Analyst at McKinsey; prior Bond Trading intern at Capital Group; Corporate Development at HCL Technologies.",
+        "DEI chair sits on the authenticity/inclusion values CCC markets heavily on the homepage."
+      ],
+      "best_ask": "Ask what DEI looks like in practice during rush/NME — and which CCC experiences prepared her for McKinsey."
+    },
+    {
+      "name": "Ayesha Sen",
+      "role": "Project Director",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": "as2935@cornell.edu",
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Project Director (AEM '27) with Kearney internship — good mid-tier contact for what delivery/leadership on client teams actually feels like.",
+      "is_alumni": false,
+      "talking_points": [
+        "AEM '27 from NYC; South Asian Business Association, Sigma Delta Tau.",
+        "Management Consulting Summer Intern at Kearney.",
+        "PD role sits above PMs — owns engagement quality for a client slate."
+      ],
+      "best_ask": "Ask what separates a strong analyst on her teams and how Kearney casing compared to CCC cases."
+    },
+    {
+      "name": "Andrew Qian",
+      "role": "Project Manager",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": "ajq22@cornell.edu",
+      "career_tags": [
+        "big_tech",
+        "consulting"
+      ],
+      "relevance": "PM with Amazon SDE intern + CS/Econ dual — best CCC contact if you sit at tech×consulting intersection.",
+      "is_alumni": false,
+      "talking_points": [
+        "CS + Economics '27 from Pennington, NJ; Digital Tech & Innovation Project Team, Cornell Data Journal, CS 2800 TA.",
+        "Software Development Engineer Intern at Amazon.",
+        "PM role = day-to-day staffing of analysts and slide/analysis quality on engagements."
+      ],
+      "best_ask": "Ask how a CS-heavy profile plays in CCC interviews and on client teams vs pure business majors."
+    }
+  ]
+}

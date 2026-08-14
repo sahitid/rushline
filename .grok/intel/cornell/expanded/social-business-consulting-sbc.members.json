@@ -1,0 +1,188 @@
+{
+  "slug": "social-business-consulting-sbc",
+  "club": "Social Business Consulting (SBC)",
+  "school": "Cornell",
+  "member_count": 10,
+  "members": [
+    {
+      "name": "Trisha Saini",
+      "role": "Executive Director",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Executive Director and Contact-page partnership lead — top of SBC; best single culture/strategy coffee chat (reach via site form or LinkedIn).",
+      "is_alumni": false,
+      "talking_points": [
+        "Listed first on Current Members Executive Board as Executive Director.",
+        "Contact page: partnerships inquiries → Trisha Saini or Shiv Goel.",
+        "Owns public face of Cornell's premier pro-bono social-impact consulting shop since 2007."
+      ],
+      "best_ask": "Ask how SBC defines 'proximity to impact' when picking Fortune 500 vs NGO vs government clients this year."
+    },
+    {
+      "name": "Shiv Goel",
+      "role": "Director of Professional Development",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Director of Professional Development — owns NME/Sophomore Series quality; Contact page pairs him with Trisha for partnerships.",
+      "is_alumni": false,
+      "talking_points": [
+        "Eboard Director of Professional Development on current-members page.",
+        "PD seat maps to the public pitch: public speaking, PowerPoint, networking, customized NME.",
+        "Also listed for partnership inquiries on Contact page."
+      ],
+      "best_ask": "Ask which PD workshops actually changed members' internship outcomes last year."
+    },
+    {
+      "name": "Mohamed Kane",
+      "role": "Director of External Affairs",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Director of External Affairs — owns client/partner pipeline and how SBC shows up next to CC/CCG/180DC on joint rush calendars.",
+      "is_alumni": false,
+      "talking_points": [
+        "Eboard Director of External Affairs on current-members.",
+        "Also listed among LinkedIn company key executives.",
+        "External Affairs = brand + partnerships for a Fortune/NGO/gov client mix."
+      ],
+      "best_ask": "Ask what external partnerships (joint crash courses, panels) actually convert applicants vs just fill calendars."
+    },
+    {
+      "name": "Ella Gottlieb",
+      "role": "Director of Operations",
+      "linkedin_url": "https://www.linkedin.com/in/ella-gottlieb",
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Director of Operations and Contact-page recruitment inquiry lead — primary ops + rush logistics contact.",
+      "is_alumni": false,
+      "talking_points": [
+        "Brooks School Public Policy major (LinkedIn); Director of Operations at Social Business Consulting.",
+        "Contact page: recruitment-related inquiries → Ella Gottlieb.",
+        "Ops seat sees staffing, timelines, and how the ~board+PM+consultant machine runs."
+      ],
+      "best_ask": "Ask what pledges should budget (time) beyond NME hours — projects, capabilities, socials — and how Round 1 invites are decided."
+    },
+    {
+      "name": "Owen Spargo",
+      "role": "Director of Culture and Outreach",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Director of Culture and Outreach — best contact for fit/brotherhood-equivalent questions and whether SBC feels warm vs cutthroat.",
+      "is_alumni": false,
+      "talking_points": [
+        "Eboard Director of Culture and Outreach on current-members.",
+        "Also listed on LinkedIn company key executives.",
+        "Culture seat owns the mentorship/apprenticeship vibe SBC markets."
+      ],
+      "best_ask": "Ask what 'good culture health' looks like week-to-week and how outreach events differ from info sessions."
+    },
+    {
+      "name": "Shrayes Gunna",
+      "role": "New Member Educator",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "New Member Educator (current-members) — LinkedIn company page previously listed him as Executive Director (title drift); use NME role from current roster. Owns pledge curriculum reality.",
+      "is_alumni": false,
+      "talking_points": [
+        "Listed under New Member Educators with Abhinav Chellury on current-members.",
+        "LinkedIn company key-executives still showed 'Executive Director' at scrape time — prefer site roster for current role.",
+        "NME = first-semester hard/soft skills + immediate project staffing experience."
+      ],
+      "best_ask": "Ask what a strong NME deliverable looks like and how hard they push vs the joint-rush peer clubs."
+    },
+    {
+      "name": "Abhinav Chellury",
+      "role": "New Member Educator",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "New Member Educator on current-members — owns pledge curriculum reality and first-semester staffing experience.",
+      "is_alumni": false,
+      "talking_points": [
+        "New Member Educator on current-members (listed with Shrayes Gunna).",
+        "Sits on the curriculum side of how new consultants learn SBC’s MBB-style delivery.",
+        "Good contact for what NME workload actually feels like vs the joint-rush pitch."
+      ],
+      "best_ask": "Ask what a strong NME deliverable looks like and how hard they push vs CC/CCG/180DC peers."
+    },
+    {
+      "name": "Sarvagna Malladi",
+      "role": "Consultant",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Consultant on current roster — peer-level view of delivery and first-year member experience.",
+      "is_alumni": false,
+      "talking_points": [
+        "Listed under Consultants on current-members.",
+        "Useful peer contact for what analyst/consultant weeks look like on social-impact projects.",
+        "Can speak to how Capabilities + client work stack for newer members."
+      ],
+      "best_ask": "Ask which pre-recruitment events best predict a strong first semester as a consultant."
+    },
+    {
+      "name": "Alexander Rahaman",
+      "role": "Project Manager",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Project Manager on current roster; LinkedIn company previously listed Director of Professional Development — use PM role from site. Good delivery-side contact.",
+      "is_alumni": false,
+      "talking_points": [
+        "Listed under Project Managers with Sophia Oh, Theo Berk, Jasmine Shi, Taeyoung Kim.",
+        "LinkedIn company key-executives showed Director of Professional Development at scrape time — prefer current-members PM title.",
+        "PM role = day-to-day client delivery using SBC's stated MBB approach."
+      ],
+      "best_ask": "Ask what a strong first-semester consultant looks like on his project teams."
+    },
+    {
+      "name": "Sofia Soares dos Santos",
+      "role": "Capabilities Leader",
+      "linkedin_url": null,
+      "instagram": null,
+      "email": null,
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Capabilities Leader — owns a skills vertical in SBC’s internal apprenticeship model.",
+      "is_alumni": false,
+      "talking_points": [
+        "Listed under Capabilities Leaders on current-members.",
+        "Capabilities tracks are part of what differentiates SBC’s internal apprenticeship pitch.",
+        "Good contact for how skills verticals show up in project quality."
+      ],
+      "best_ask": "Ask what Capabilities Leaders actually teach and how that shows up in final-round cases."
+    }
+  ]
+}

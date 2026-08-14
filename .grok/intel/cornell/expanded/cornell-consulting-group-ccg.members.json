@@ -1,0 +1,194 @@
+{
+  "slug": "cornell-consulting-group-ccg",
+  "club": "Cornell Consulting Group (CCG)",
+  "school": "Cornell",
+  "member_count": 10,
+  "members": [
+    {
+      "name": "Spencer Hom",
+      "role": "Managing Director",
+      "linkedin_url": "https://www.linkedin.com/in/spencerhom",
+      "instagram": null,
+      "email": "sh2573@cornell.edu",
+      "career_tags": [
+        "finance",
+        "startups"
+      ],
+      "relevance": "Managing Director — top of CCG Board of Directors; best single contact for strategy, culture, and how the <25-person model works.",
+      "is_alumni": false,
+      "talking_points": [
+        "AEM + IS minor; Long Island; industry tag Finance on club site.",
+        "Summer Analyst at Voyager Capital HK (growth equity / AI); part-time Investment Analyst at Frachtis (blockchain × AI VC).",
+        "Campus: Cornell Equity Research (Education Chair), Cornell Blockchain, fencing/pickleball/boxing, TA for NBA 5060."
+      ],
+      "best_ask": "Ask how he wants CCG's small-class model to feel different from CCC/SBC — and what he looks for beyond casing polish."
+    },
+    {
+      "name": "Nicholas Blasi",
+      "role": "Director of Consulting",
+      "linkedin_url": "https://www.linkedin.com/in/nicholas-blasi",
+      "instagram": null,
+      "email": "nab268@cornell.edu",
+      "career_tags": [
+        "consulting",
+        "finance"
+      ],
+      "relevance": "Director of Consulting — owns project delivery quality and PM oversight; Accenture BA intern signal.",
+      "is_alumni": false,
+      "talking_points": [
+        "AEM + Education minor from LA; IB & Consulting industry tag.",
+        "Business Analyst Intern at Accenture (asset-management front office transformation); Morgan Stanley JumpStart Scholar; KKR Accelerator + Meinig Scholar.",
+        "Also Cornell Financial Analysts (VP Finance & C&R Sector Head), BlackGen Capital, Dyson UG/Diversity Councils."
+      ],
+      "best_ask": "Ask what a strong CCG final deliverable looks like and how Accenture work changed how he coaches PMs."
+    },
+    {
+      "name": "David Diao",
+      "role": "Director of Member Development",
+      "linkedin_url": "https://www.linkedin.com/in/david-diao-5082a027a",
+      "instagram": null,
+      "email": "dd668@cornell.edu",
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Primary Spring 2026 recruitment contact (why-ccg page) — owns NME, coffee-chat culture, and who gets invited.",
+      "is_alumni": false,
+      "talking_points": [
+        "Public Policy + Business minor from Scarsdale; Business and Consulting industry tag.",
+        "Interned at OEC Group (logistics) and NYS Civil Supreme Court commercial division.",
+        "Campus: Phi Chi Theta (prev. VP Recruitment), Auto Drone, Cornell Political Union (VP Finance), NROTC."
+      ],
+      "best_ask": "Ask what actually moves a resume from app → R1 invite, and how tailored NME works for a class of a few people."
+    },
+    {
+      "name": "Armaan Chandak",
+      "role": "Project Manager",
+      "linkedin_url": "https://www.linkedin.com/in/armaanchandak",
+      "instagram": null,
+      "email": "ac2992@cornell.edu",
+      "career_tags": [
+        "big_tech",
+        "consulting"
+      ],
+      "relevance": "ECE PM with GuardisAI SWE + pharma process-eng internships — best CCG contact for eng/tech profiles rushing consulting.",
+      "is_alumni": false,
+      "talking_points": [
+        "Electrical & Computer Engineering; St. Louis.",
+        "Process Engineering Intern at Sentio BioSciences; prior SWE Intern at GuardisAI.",
+        "Campus: Cornell Bhangra, CS 2800 AEW Facilitator, Cornell Tradition Fellow, social fraternity."
+      ],
+      "best_ask": "Ask how an ECE background plays in CCG cases and on client teams vs Dyson/ILR peers."
+    },
+    {
+      "name": "Zaki Ahmad",
+      "role": "Project Manager",
+      "linkedin_url": "https://www.linkedin.com/in/zakimahmad",
+      "instagram": null,
+      "email": "zma6@cornell.edu",
+      "career_tags": [
+        "consulting",
+        "finance"
+      ],
+      "relevance": "ILR PM with legal/finance + State Dept signal — good for consulting×policy/law-curious rushers.",
+      "is_alumni": false,
+      "talking_points": [
+        "ILR + Business / International Markets minors; Potomac, MD; Consulting and Law industry tag.",
+        "Legal & Financial Summer Associate at an infrastructure investment firm; prior U.S. State Dept Youth Ambassador (Cuenca, Ecuador).",
+        "Campus: Cornell Policy Group (Center Director), UHCA, IM sports, social fraternity Scholarship Chair."
+      ],
+      "best_ask": "Ask what he coaches new analysts on before their first C-suite readout."
+    },
+    {
+      "name": "Hope Chan",
+      "role": "Project Manager",
+      "linkedin_url": "https://www.linkedin.com/in/hope-thi-chan",
+      "instagram": null,
+      "email": "hkc29@cornell.edu",
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "PM who is also Cornell Tech Consulting Director of Recruitment — unique cross-consulting-club perspective.",
+      "is_alumni": false,
+      "talking_points": [
+        "Human Development + IS minor; Redondo Beach; Consulting and Law industry tag.",
+        "Prior internships at Walzer Melcher LLP and NAMI; sales at Abercrombie.",
+        "Campus: Phi Alpha Delta (VP PR), CEARS Treasurer, Human Ecology Dean's UG Advisory Council; Cornell Tech Consulting DoR."
+      ],
+      "best_ask": "Ask how CCG vs Cornell Tech Consulting differ in rush fit and project style."
+    },
+    {
+      "name": "Paige Hurwitz",
+      "role": "Senior Advisor",
+      "linkedin_url": "https://www.linkedin.com/in/paige-hurwitz-30b217292",
+      "instagram": null,
+      "email": "pmh3@cornell.edu",
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "Senior Advisor with incoming PwC Workforce Transformation Consulting intern — good for human-capital / HR consulting path.",
+      "is_alumni": false,
+      "talking_points": [
+        "ILR + Inequality Studies minor; Consulting industry tag.",
+        "International HR Business Partner Intern at L3Harris; next summer PwC Workforce Transformation Consulting Intern.",
+        "Also Consult Your Community Director of NME — dual consulting-org educator."
+      ],
+      "best_ask": "Ask what Senior Advisors actually do for new analysts and how CYC NME compares to CCG's."
+    },
+    {
+      "name": "Tessa Stern",
+      "role": "Senior Advisor",
+      "linkedin_url": "https://www.linkedin.com/in/tessastern",
+      "instagram": null,
+      "email": "trs253@cornell.edu",
+      "career_tags": [
+        "consulting",
+        "finance"
+      ],
+      "relevance": "Senior Advisor with incoming Bain ACI — strongest CCG coffee chat for MBB outcomes from a small club.",
+      "is_alumni": false,
+      "talking_points": [
+        "Cognitive Science + French + Business minor; Consulting industry tag.",
+        "Investment Intern at Bayview Asset Management (Emerging Strategies); incoming Bain Associate Consultant Intern.",
+        "Campus: PDOW, Cornell Latinos in Business, Base Productions, Brazilian Student Association, social sorority."
+      ],
+      "best_ask": "Ask which CCG experiences (cases, client readouts, NME) most prepared her for Bain."
+    },
+    {
+      "name": "Zach Snarr",
+      "role": "Senior Advisor",
+      "linkedin_url": "https://www.linkedin.com/in/zachsnarr",
+      "instagram": null,
+      "email": "zcs4@cornell.edu",
+      "career_tags": [
+        "consulting"
+      ],
+      "relevance": "MechE Senior Advisor heading to Oliver Wyman Strategy Consulting — best eng→strategy path contact in CCG.",
+      "is_alumni": false,
+      "talking_points": [
+        "Mechanical Engineering + Sustainable Energy Systems minor; Concord, MA; Energy industry tag.",
+        "Energy Markets Intern at Voltus; intends Oliver Wyman Strategy Consulting Analyst (NYC) this summer.",
+        "Campus: Project LTF Director of Finances, Cornell Mundial FC, Army ROTC."
+      ],
+      "best_ask": "Ask how an engineer cases for CCG/OW and what energy-market projects taught him about strategy work."
+    },
+    {
+      "name": "Dennis Voloshko",
+      "role": "Analyst",
+      "linkedin_url": "https://www.linkedin.com/in/dennis-voloshko-6958382a8",
+      "instagram": null,
+      "email": "djv62@cornell.edu",
+      "career_tags": [
+        "consulting",
+        "startups"
+      ],
+      "relevance": "Current Analyst with AI/ops startup internship — useful peer-level view of newest-member experience.",
+      "is_alumni": false,
+      "talking_points": [
+        "AEM + History minor; Brooklyn; Consulting industry tag.",
+        "Strategy & Operations intern at CORE Home — led AI-driven copywriting automation and product DB streamlining.",
+        "Campus: Cornell Marketing Club Project Manager, AEM 2420 TA, IM sports."
+      ],
+      "best_ask": "Ask what the first-semester analyst workload really felt like vs the pitch — and what he'd do differently in rush."
+    }
+  ]
+}
