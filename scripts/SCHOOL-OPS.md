@@ -31,3 +31,10 @@ See `UPSERT-CORNELL.md`. For a new school: copy packs under `.grok/intel/<school
 - Canonical school strings must match the app picker (`Cornell`, `UC Berkeley`, …).
 - Do not hardcode club lists in Next.js — DB-driven only.
 - Never commit `.env*`.
+
+## 5. Berkeley demo seed
+Old prod Berkeley DB is gone. Recreate the consulting demo:
+```bash
+node scripts/seed-berkeley-demo.mjs --dry-run
+node scripts/seed-berkeley-demo.mjs
+```
