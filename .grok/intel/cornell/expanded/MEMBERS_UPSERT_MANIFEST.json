@@ -1,0 +1,111 @@
+{
+  "ready_for_members_upsert": [
+    {
+      "slug": "cornell-baja-racing",
+      "md": "/workspace/rushline-cornell/expanded/cornell-baja-racing.md",
+      "members_json": "/workspace/rushline-cornell/expanded/cornell-baja-racing.members.json",
+      "count": 10,
+      "names": [
+        "Rachel Ortiz",
+        "Ava Rosenow",
+        "Greg Svensson",
+        "Bella Pensabene",
+        "Elias Herrera Hernandez",
+        "Sava Iliev",
+        "Mallory Moore",
+        "Magnus Carson",
+        "Rex Popick",
+        "Trevor Boshnack"
+      ]
+    },
+    {
+      "slug": "cusail",
+      "md": "/workspace/rushline-cornell/expanded/cusail.md",
+      "members_json": "/workspace/rushline-cornell/expanded/cusail.members.json",
+      "count": 8,
+      "names": [
+        "Aidan Mulvey",
+        "Emith Uyanwatte",
+        "Skyler Walcoff",
+        "Nicole Luo",
+        "Tiffany Li",
+        "Linda Chen",
+        "Emma Moore",
+        "Nikil Shyamsunder"
+      ]
+    },
+    {
+      "slug": "cornell-assistive-technologies",
+      "md": "/workspace/rushline-cornell/expanded/cornell-assistive-technologies.md",
+      "members_json": "/workspace/rushline-cornell/expanded/cornell-assistive-technologies.members.json",
+      "count": 10,
+      "names": [
+        "Lucas Keith",
+        "Mae Sliwinski",
+        "Savaas Iqbal",
+        "Natalie Shepherd",
+        "Chris Parker",
+        "William Ellis",
+        "Zaid Al-Shoha",
+        "Josephine Kelly",
+        "Dina Shlufman",
+        "Richard Ballard"
+      ]
+    },
+    {
+      "slug": "cornell-consulting-club-ccc",
+      "md": "/workspace/rushline-cornell/expanded/cornell-consulting-club-ccc.md",
+      "members_json": "/workspace/rushline-cornell/expanded/cornell-consulting-club-ccc.members.json",
+      "count": 10,
+      "names": [
+        "Neil Abraham",
+        "Sam Perez",
+        "Zara Islam",
+        "Leila Boesch-Powers",
+        "Andrea Peng",
+        "Eddy Pang",
+        "Ajay Sharma",
+        "Cate Tucker",
+        "Ayesha Sen",
+        "Andrew Qian"
+      ]
+    },
+    {
+      "slug": "cornell-consulting-group-ccg",
+      "md": "/workspace/rushline-cornell/expanded/cornell-consulting-group-ccg.md",
+      "members_json": "/workspace/rushline-cornell/expanded/cornell-consulting-group-ccg.members.json",
+      "count": 10,
+      "names": [
+        "Spencer Hom",
+        "Nicholas Blasi",
+        "David Diao",
+        "Armaan Chandak",
+        "Zaki Ahmad",
+        "Hope Chan",
+        "Paige Hurwitz",
+        "Tessa Stern",
+        "Zach Snarr",
+        "Dennis Voloshko"
+      ]
+    },
+    {
+      "slug": "social-business-consulting-sbc",
+      "md": "/workspace/rushline-cornell/expanded/social-business-consulting-sbc.md",
+      "members_json": "/workspace/rushline-cornell/expanded/social-business-consulting-sbc.members.json",
+      "count": 10,
+      "names": [
+        "Trisha Saini",
+        "Shiv Goel",
+        "Mohamed Kane",
+        "Ella Gottlieb",
+        "Owen Spargo",
+        "Shrayes Gunna",
+        "Abhinav Chellury",
+        "Sarvagna Malladi",
+        "Alexander Rahaman",
+        "Sofia Soares dos Santos"
+      ]
+    }
+  ],
+  "note": "Full MEMBERS restored/confirmed 2026-08-10. Re-upsert members only."
+}
