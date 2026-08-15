@@ -1,11 +1,12 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Sidebar from "@/components/Sidebar";
 import CoffeeChatDrawer from "@/components/CoffeeChatDrawer";
 import { getSupabase } from "@/lib/supabase";
 import { scoreClubDetailed } from "@/lib/rank";
+import { clubPrestige } from "@/lib/prestige";
 import { colorFor, initials, monogram } from "@/lib/ui";
 import type {
   Club,
@@ -18,6 +19,11 @@ import type {
 import { useSchool } from "@/components/SchoolProvider";
 import { schoolMatches, schoolShortLabel } from "@/lib/school";
 
+type PlacementChip = {
+  firm: string;
+  kinds: string[];
+  source?: string;
+};
 function linkedinConnect(m: Member, club: Club) {
   if (m.linkedin_url) return m.linkedin_url;
   return `https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(
@@ -254,6 +260,58 @@ export default function ClubDetail({
       ? "Mostly Negative"
       : "Mixed";
 
+  const placementChips = useMemo(() => {
+    const byFirm = new Map<string, PlacementChip>();
+    for (const p of intel?.placements ?? []) {
+      const firm = (p.firm ?? "").trim();
+      if (!firm) continue;
+      const key = firm.toLowerCase();
+      const existing = byFirm.get(key);
+      const kinds = p.kinds ?? [];
+      if (existing) {
+        for (const k of kinds) {
+          if (!existing.kinds.includes(k)) existing.kinds.push(k);
+        }
+        if (!existing.source && p.source) existing.source = p.source;
+      } else {
+        byFirm.set(key, { firm, kinds: [...kinds], source: p.source });
+      }
+    }
+    // Fall back to firms mentioned in member bios when intel.placements is thin
+    if (byFirm.size < 6) {
+      const prestige = clubPrestige(
+        members,
+        profile?.career_goal ?? null,
+        profile?.target_clubs ?? [],
+        intel?.placements ?? [],
+        club
+      );
+      for (const hit of prestige.hits) {
+        const key = hit.firm.toLowerCase();
+        if (!byFirm.has(key)) {
+          byFirm.set(key, { firm: hit.firm, kinds: [], source: undefined });
+        }
+      }
+    }
+    return [...byFirm.values()].slice(0, 12);
+  }, [intel?.placements, members, profile, club]);
+
+  const hasReddit =
+    Boolean(intel?.reddit_sentiment?.summary) || reddit.length > 0;
+  const hasX =
+    Boolean(intel?.x_sentiment?.summary) ||
+    (intel?.x_sentiment?.posts?.length ?? 0) > 0;
+  const hasPlacements = placementChips.length > 0;
+  const showSocialRow = hasReddit || hasX || hasPlacements;
+
+  function kindLabel(kinds: string[]): string | null {
+    const set = new Set(kinds.map((k) => k.toLowerCase()));
+    if (set.has("full_time") && set.has("summer_intern")) return "FT + summer";
+    if (set.has("full_time")) return "Full-time";
+    if (set.has("summer_intern")) return "Summer";
+    return null;
+  }
+
   return shell(
     <>
       <Link
@@ -477,115 +535,261 @@ export default function ClubDetail({
           </SectionCard>
         )}
 
-        {(intel?.reddit_sentiment?.summary || reddit.length > 0) && (
-          <SectionCard title="Reddit Sentiment">
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-              <div style={{ flex: 1, height: 6, borderRadius: 3, background: "#E8E8E3", overflow: "hidden" }}>
-                <div
-                  style={{
-                    width: positive ? "74%" : "50%",
-                    height: "100%",
-                    borderRadius: 3,
-                    background: positive
-                      ? "linear-gradient(90deg, #22C55E 0%, #3B3BFF 100%)"
-                      : "linear-gradient(90deg, #F59E0B 0%, #3B3BFF 100%)",
-                  }}
-                />
-              </div>
-              <span
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  color: positive ? "#22C55E" : "#F59E0B",
-                }}
-              >
-                {sentimentLabel}
-              </span>
-            </div>
-            {intel?.reddit_sentiment?.summary && (
-              <p style={{ fontSize: 13, lineHeight: 1.6, color: "#4A4A44", marginBottom: 12 }}>
-                {intel.reddit_sentiment.summary}
-              </p>
-            )}
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {reddit.slice(0, 3).map((r) => (
-                <a
-                  key={r.id}
-                  href={r.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{
-                    background: "#FAFAF7",
-                    border: "1px solid #E8E8E3",
-                    borderRadius: 10,
-                    padding: "12px 14px",
-                    textDecoration: "none",
-                    display: "block",
-                  }}
-                >
-                  <p style={{ fontSize: 12, lineHeight: 1.6, color: "#4A4A44", marginBottom: 8 }}>
-                    {r.title}
-                  </p>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontSize: 11, color: "#8C8C85" }}>↑ {r.score}</span>
-                    {r.subreddit && (
-                      <span style={{ fontSize: 11, color: "#3B3BFF", fontWeight: 500 }}>
-                        r/{r.subreddit.replace(/^r\//, "")}
-                      </span>
-                    )}
-                    <span style={{ marginLeft: "auto", fontSize: 11, color: "#B0B0A8" }}>↗</span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </SectionCard>
-        )}
-
-        {intel?.x_sentiment && (intel.x_sentiment.summary || (intel.x_sentiment.posts?.length ?? 0) > 0) && (
-          <SectionCard
-            title="Live X Chatter"
-            badge={
-              <span
-                style={{
-                  background: "#F4F4F0",
-                  border: "1px solid #E8E8E3",
-                  borderRadius: 6,
-                  padding: "1px 8px",
-                  fontSize: 10,
-                  fontWeight: 600,
-                  color: "#4A4A44",
-                }}
-              >
-                via Grok x_search
-              </span>
-            }
+        {showSocialRow && (
+          <div
+            style={{
+              gridColumn: "1 / -1",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 16,
+              alignItems: "stretch",
+            }}
           >
-            {intel.x_sentiment.summary && (
-              <p style={{ fontSize: 13, lineHeight: 1.6, color: "#4A4A44", marginBottom: 12 }}>
-                {intel.x_sentiment.summary}
-              </p>
-            )}
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {(intel.x_sentiment.posts ?? []).slice(0, 3).map((p, i) => (
-                <div
-                  key={i}
-                  style={{
-                    background: "#FAFAF7",
-                    border: "1px solid #E8E8E3",
-                    borderRadius: 10,
-                    padding: "12px 14px",
-                  }}
-                >
-                  <p style={{ fontSize: 12, lineHeight: 1.6, color: "#4A4A44", marginBottom: p.handle ? 6 : 0 }}>
-                    &quot;{p.text}&quot;
-                  </p>
-                  {p.handle && (
-                    <span style={{ fontSize: 11, color: "#3B3BFF", fontWeight: 500 }}>{p.handle}</span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 16, minHeight: 0 }}>
+              {hasReddit && (
+                <SectionCard title="Reddit Sentiment">
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
+                    <div
+                      style={{
+                        flex: 1,
+                        height: 6,
+                        borderRadius: 3,
+                        background: "#E8E8E3",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: positive ? "74%" : "50%",
+                          height: "100%",
+                          borderRadius: 3,
+                          background: positive
+                            ? "linear-gradient(90deg, #22C55E 0%, #3B3BFF 100%)"
+                            : "linear-gradient(90deg, #F59E0B 0%, #3B3BFF 100%)",
+                        }}
+                      />
+                    </div>
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: positive ? "#22C55E" : "#F59E0B",
+                      }}
+                    >
+                      {sentimentLabel}
+                    </span>
+                  </div>
+                  {intel?.reddit_sentiment?.summary && (
+                    <p
+                      style={{
+                        fontSize: 13,
+                        lineHeight: 1.55,
+                        color: "#4A4A44",
+                        marginBottom: reddit.length ? 10 : 0,
+                        display: "-webkit-box",
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {intel.reddit_sentiment.summary}
+                    </p>
                   )}
-                </div>
-              ))}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {reddit.slice(0, 1).map((r) => (
+                      <a
+                        key={r.id}
+                        href={r.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          background: "#FAFAF7",
+                          border: "1px solid #E8E8E3",
+                          borderRadius: 10,
+                          padding: "10px 12px",
+                          textDecoration: "none",
+                          display: "block",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 12,
+                            lineHeight: 1.5,
+                            color: "#4A4A44",
+                            marginBottom: 6,
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                          }}
+                        >
+                          {r.title}
+                        </p>
+                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          <span style={{ fontSize: 11, color: "#8C8C85" }}>↑ {r.score}</span>
+                          {r.subreddit && (
+                            <span style={{ fontSize: 11, color: "#3B3BFF", fontWeight: 500 }}>
+                              r/{r.subreddit.replace(/^r\//, "")}
+                            </span>
+                          )}
+                          <span style={{ marginLeft: "auto", fontSize: 11, color: "#B0B0A8" }}>↗</span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </SectionCard>
+              )}
+
+              {(hasPlacements || hasReddit) && (
+                <SectionCard
+                  title="Placements"
+                  badge={
+                    hasPlacements ? (
+                      <span
+                        style={{
+                          background: "#F4F4F0",
+                          border: "1px solid #E8E8E3",
+                          borderRadius: 6,
+                          padding: "1px 8px",
+                          fontSize: 10,
+                          fontWeight: 600,
+                          color: "#4A4A44",
+                        }}
+                      >
+                        {placementChips.length} firms
+                      </span>
+                    ) : undefined
+                  }
+                >
+                  {hasPlacements ? (
+                    <>
+                      <p
+                        style={{
+                          fontSize: 12,
+                          lineHeight: 1.5,
+                          color: "#8C8C85",
+                          marginBottom: 12,
+                        }}
+                      >
+                        Where members and alumni land — summer + full-time signals from
+                        rosters and club site scrapes.
+                      </p>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                        {placementChips.map((p) => {
+                          const kind = kindLabel(p.kinds);
+                          const inner = (
+                            <span
+                              style={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 6,
+                                background: "#FAFAF7",
+                                border: "1px solid #E8E8E3",
+                                borderRadius: 8,
+                                padding: "6px 10px",
+                                fontSize: 12,
+                                fontWeight: 500,
+                                color: "#0F0F0E",
+                              }}
+                            >
+                              {p.firm}
+                              {kind && (
+                                <span
+                                  style={{
+                                    fontSize: 10,
+                                    fontWeight: 600,
+                                    color: "#3B3BFF",
+                                    letterSpacing: "0.02em",
+                                  }}
+                                >
+                                  {kind}
+                                </span>
+                              )}
+                            </span>
+                          );
+                          return p.source ? (
+                            <a
+                              key={p.firm}
+                              href={p.source}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{ textDecoration: "none" }}
+                            >
+                              {inner}
+                            </a>
+                          ) : (
+                            <span key={p.firm}>{inner}</span>
+                          );
+                        })}
+                      </div>
+                    </>
+                  ) : (
+                    <p style={{ fontSize: 13, lineHeight: 1.6, color: "#8C8C85" }}>
+                      No placement signals yet for this club.
+                    </p>
+                  )}
+                </SectionCard>
+              )}
             </div>
-          </SectionCard>
+
+            {hasX ? (
+              <SectionCard
+                title="Live X Chatter"
+                badge={
+                  <span
+                    style={{
+                      background: "#F4F4F0",
+                      border: "1px solid #E8E8E3",
+                      borderRadius: 6,
+                      padding: "1px 8px",
+                      fontSize: 10,
+                      fontWeight: 600,
+                      color: "#4A4A44",
+                    }}
+                  >
+                    via Grok x_search
+                  </span>
+                }
+              >
+                {intel?.x_sentiment?.summary && (
+                  <p style={{ fontSize: 13, lineHeight: 1.6, color: "#4A4A44", marginBottom: 12 }}>
+                    {intel.x_sentiment.summary}
+                  </p>
+                )}
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {(intel?.x_sentiment?.posts ?? []).slice(0, 3).map((p, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: "#FAFAF7",
+                        border: "1px solid #E8E8E3",
+                        borderRadius: 10,
+                        padding: "12px 14px",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontSize: 12,
+                          lineHeight: 1.6,
+                          color: "#4A4A44",
+                          marginBottom: p.handle ? 6 : 0,
+                        }}
+                      >
+                        &quot;{p.text}&quot;
+                      </p>
+                      {p.handle && (
+                        <span style={{ fontSize: 11, color: "#3B3BFF", fontWeight: 500 }}>
+                          {p.handle}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </SectionCard>
+            ) : (
+              <div />
+            )}
+          </div>
         )}
 
         {intel?.vibe && Object.keys(intel.vibe).length > 0 && (
