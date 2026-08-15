@@ -82,7 +82,7 @@ export type ClubIntel = {
   vibe: VibeRead;
   x_sentiment: XSentiment;
   sources: { label: string; url: string }[];
-  placements?: { firm: string; source?: string }[] | null;
+  placements?: { firm: string; source?: string; kinds?: string[] }[] | null;
 };
 
 export type Member = {
